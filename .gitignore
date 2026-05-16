@@ -47,3 +47,6 @@ temp/
 .DS_Store
 .vscode/
 .idea/
+
+#diagram
+docs/architecture.mmd
