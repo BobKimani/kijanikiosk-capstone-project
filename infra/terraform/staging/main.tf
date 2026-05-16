@@ -18,10 +18,10 @@ resource "kubernetes_namespace" "kijani_staging" {
     name = var.namespace
 
     labels = {
-      environment                = "staging"
-      "app.kubernetes.io/name"   = "kijanikiosk"
+      environment                 = "staging"
+      "app.kubernetes.io/name"    = "kijanikiosk"
       "app.kubernetes.io/part-of" = "kijanikiosk-capstone"
-      managed_by                 = "terraform"
+      managed_by                  = "terraform"
     }
   }
 }
