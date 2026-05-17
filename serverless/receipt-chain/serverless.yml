@@ -1,11 +1,11 @@
 service: kk-receipt-chain
 
-frameworkVersion: '3'
+frameworkVersion: '^3.0.0'
 
 provider:
   name: aws
   runtime: nodejs20.x
-  region: ${opt:region, 'us-east-1'}
+  region: us-east-1
   stage: ${opt:stage, 'staging'}
   environment:
     RECEIPT_BUCKET: kk-payments-receipts-${self:provider.stage}
