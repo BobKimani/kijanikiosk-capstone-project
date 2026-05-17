@@ -1,0 +1,22 @@
+groups:
+  - name: kk-payments.rules
+    rules:
+      - alert: KKPaymentsPodRestarting
+        expr: increase(kube_pod_container_status_restarts_total{namespace=~"kijani-staging|kijani-production", pod=~"kk-payments.*"}[5m]) > 0
+        for: 2m
+        labels:
+          severity: warning
+          service: kk-payments
+        annotations:
+          summary: "kk-payments pod restarted"
+          description: "A kk-payments pod restarted in staging or production within the last 5 minutes."
+
+      - alert: KKPaymentsDeploymentUnavailable
+        expr: kube_deployment_status_replicas_unavailable{namespace=~"kijani-staging|kijani-production", deployment="kk-payments"} > 0
+        for: 3m
+        labels:
+          severity: critical
+          service: kk-payments
+        annotations:
+          summary: "kk-payments deployment has unavailable replicas"
+          description: "kk-payments has unavailable replicas for more than 3 minutes."
