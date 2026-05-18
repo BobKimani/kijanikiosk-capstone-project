@@ -27,27 +27,18 @@ pipeline {
         }
 
         stage('Deploy to Staging') {
-            when {
-                branch 'main'
-            }
             steps {
                 sh './scripts/deploy-staging.sh'
             }
         }
 
         stage('Smoke Test Staging') {
-            when {
-                branch 'main'
-            }
             steps {
                 sh './scripts/smoke-test-staging.sh'
             }
         }
 
         stage('Production Approval') {
-            when {
-                branch 'main'
-            }
             steps {
                 script {
                     def approval = input(
@@ -73,9 +64,6 @@ pipeline {
         }
 
         stage('Deploy to Production') {
-            when {
-                branch 'main'
-            }
             steps {
                 sh './scripts/deploy-production.sh'
             }
