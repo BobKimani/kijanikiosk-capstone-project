@@ -1,0 +1,20 @@
+---
+- name: Configure KijaniKiosk staging environment
+  hosts: staging
+  gather_facts: false
+
+  tasks:
+    - name: Verify staging namespace exists
+      ansible.builtin.command:
+        cmd: kubectl get namespace {{ k8s_namespace }}
+      changed_when: false
+
+    - name: Apply staging k8s manifests
+      ansible.builtin.command:
+        cmd: kubectl apply -k k8s/staging
+        chdir: "{{ playbook_dir }}/../../.."
+      register: staging_apply
+
+    - name: Show staging apply result
+      ansible.builtin.debug:
+        var: staging_apply.stdout
