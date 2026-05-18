@@ -10,12 +10,20 @@ pipeline {
     environment {
         STAGING_NAMESPACE = 'kijani-staging'
         PRODUCTION_NAMESPACE = 'kijani-production'
+        KUBECONFIG = '/var/jenkins_home/.kube/config'
     }
 
     stages {
         stage('Checkout') {
             steps {
                 checkout scm
+            }
+        }
+
+        stage('Verify Kubernetes Access') {
+            steps {
+                sh 'kubectl config current-context'
+                sh 'kubectl get ns'
             }
         }
 
